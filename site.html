@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b1516">
+  <meta name="description" content="Portfolio.">
+  <title>Portfolio</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f3eeee;
+      --muted: #b7a9aa;
+      --bg: #1b1516;
+      --panel: #261d1e;
+      --line: #493536;
+      --accent: #ff6b6b;
+      --accent-dark: #451f22;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 82% 4%, rgb(255 107 107 / 9%), transparent 29rem),
+        var(--bg);
+      color: var(--ink);
+      font: 16px/1.65 var(--sans);
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+      border-radius: 2px;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-block: 25px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wordmark {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px 22px;
+    }
+
+    nav a, .text-link {
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    nav a { text-decoration: none; }
+    nav a:hover, .text-link:hover { color: var(--accent); }
+
+    .hero {
+      min-height: 490px;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      gap: 48px;
+      padding-block: 86px 96px;
+    }
+
+    .eyebrow, .section-kicker, .project-number {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 22px;
+      font: 400 clamp(46px, 8vw, 88px)/.99 var(--serif);
+      letter-spacing: -.055em;
+    }
+
+    .hero-copy {
+      max-width: 590px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 17px;
+      border: 1px solid var(--accent);
+      border-radius: 3px;
+      background: var(--accent);
+      color: #261516;
+      font-size: 13px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .button:hover { background: #ff8585; }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .button.secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    section { scroll-margin-top: 24px; }
+
+    .section {
+      padding-block: 76px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-kicker { margin-bottom: 28px; }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .project {
+      min-height: 335px;
+      padding: 25px 22px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgb(255 255 255 / 2%), transparent 70%);
+    }
+
+    .project-number { margin-bottom: 27px; }
+
+    h3 {
+      margin-bottom: 12px;
+      font: 400 26px/1.16 var(--serif);
+    }
+
+    .project > p, .detail p, .cv-copy, .profile-note {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .detail {
+      padding-top: 15px;
+      margin-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .detail p { margin-bottom: 9px; }
+    .detail strong { color: var(--ink); font-weight: 650; }
+
+    .skills-layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .skill-group {
+      padding: 25px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .skill-group h3 { margin-bottom: 18px; }
+
+    .code-samples { margin-top: 28px; }
+
+    .code-samples > h3 { margin-bottom: 16px; }
+
+    .code-sample-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .code-sample {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .code-sample h4 {
+      flex-grow: 1;
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .code-sample pre {
+      height: 240px;
+      overflow: auto;
+      margin: 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      font: 13px/1.6 Consolas, "Courier New", monospace;
+      tab-size: 4;
+    }
+
+    .code-sample code { white-space: pre; }
+
+    .code-sample pre:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tags li {
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .cv-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .cv-card h3 { margin-bottom: 8px; }
+    .cv-copy { margin-bottom: 0; }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .profile-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .profile-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+    }
+
+    .profile-link:hover { border-color: var(--accent); color: var(--accent); }
+    .profile-link span:last-child { color: var(--accent); }
+    .profile-note { margin: 18px 0 0; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-disclosure {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; gap: 34px; padding-block: 66px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .code-sample-grid { grid-template-columns: 1fr; }
+      .download-grid { grid-template-columns: 1fr; }
+      .project { min-height: auto; }
+      .project-number { margin-bottom: 17px; }
+      .profile-list { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .wrap { width: min(100% - 32px, 1120px); }
+      .topbar { align-items: flex-start; flex-direction: column; gap: 14px; }
+      nav { justify-content: flex-start; gap: 8px 16px; }
+      .skills-layout { grid-template-columns: 1fr; }
+      .cv-card { align-items: flex-start; flex-direction: column; padding: 22px; }
+      .section { padding-block: 56px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap topbar">
+    <a class="wordmark" href="#about">Franciszek Rembiasz / Portfolio</a>
+    <nav aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#cv">CV</a>
+      <a href="#profiles">Profiles</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" id="about" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Computing student</p>
+        <h1 id="page-title">Franciszek Rembiasz</h1>
+        <p class="hero-copy">From a young age, I've always been fascinated with computers, how they work, and how they could improve our lives. Over the years, I have some work to show from over the years. Below is a sample of said work.</p>
+        <div class="hero-links">
+          <a class="button" href="#work">Explore my work <span aria-hidden="true">&nbsp;↓</span></a>
+          <a class="button secondary" href="#profiles">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-title">
+      <p class="section-kicker" id="work-title">Selected work</p>
+      <div class="project-grid">
+        <article class="project">
+          <p class="project-number">Project 01</p>
+          <h3>Fishing Game</h3>
+          <p>A simple fishing game in Java</p>
+          <div class="detail">
+            <p><strong>Technologies</strong><br>Java</p>
+            <p><strong>My role</strong><br>Lead developer and designer</p>
+            <p><strong>Challenge &amp; learning</strong><br>Java was a language that I was at the time unfamiliar with, and was quickly able to learn and adapt how it works.</p>
+          </div>
+        </article>
+        <article class="project">
+          <p class="project-number">Project 02</p>
+          <h3>SQL Project</h3>
+          <p>Final project for the SQL module of the Data Science class in college</p>
+          <div class="detail">
+            <p><strong>Technologies</strong><br>SQL, MySQL</p>
+            <p><strong>My role</strong><br>Lead Developer</p>
+            <p><strong>Challenge &amp; learning</strong><br>I had to learn and adapt to the intircate syntax of SQL, while managing a large database of data.</p>
+          </div>
+        </article>
+        <article class="project">
+          <p class="project-number">Project 03</p>
+          <h3>Squash Incremental Game</h3>
+          <p>A small scale incremental game using a real squash, powered by Raspberry PI</p>
+          <div class="detail">
+            <p><strong>Technologies</strong><br>Python, HTML, Raspberry PI</p>
+            <p><strong>My role</strong><br>Integrated system programmer</p>
+            <p><strong>Challenge &amp; learning</strong><br>Learned quickly how to develop an integrated system using a Raspberry PI</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <p class="section-kicker" id="skills-title">What I bring</p>
+      <div class="skills-layout">
+        <div class="skill-group">
+          <h3>Technical skills</h3>
+          <ul class="tags">
+            <li>Java</li>
+            <li>Python</li>
+            <li>SQL</li>
+            <li>Visual Basic</li>
+            <li>Java Script</li>
+            <li>PHP</li>
+            
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Transferable skills</h3>
+          <ul class="tags">
+            <li>Teamworking</li>
+            <li>Adaptability</li>
+            <li>Problem solving</li>
+            <li>Analytical</li>
+          </ul>
+        </div>
+      </div>
+      <div class="code-samples">
+        <h3>Code samples</h3>
+        <div class="code-sample-grid">
+          <article class="code-sample">
+            <h4 id="pressure-sample-title">[Pressure detection in Raspberry PI · Python]</h4>
+            <pre tabindex="0" role="region" aria-labelledby="pressure-sample-title"><code>from machine import ADC, Pin
+from utime import sleep
+
+sensor = ADC(Pin(27))
+
+prevval = 0
+
+while True:
+    value = int((sensor.read_u16() / 10000))
+
+    print(value)
+
+    if value >= (prevval + 2):
+        print("Activate")
+
+    prevval = value
+    sleep(0.01)
+// This is a snippet of the code that was used in the Integrated Systems project, and was used to detect in the squash was touched.</code></pre>
+          </article>
+          <article class="code-sample">
+            <h4 id="incident-sample-title">[Incident Queue · Java]</h4>
+            <pre tabindex="0" role="region" aria-labelledby="incident-sample-title"><code>package dataStructuresAssessment;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Iterator;
+
+//IncidentQueue class: A queue class that stores all instances of the Incident class in order of priority.
+public class IncidentQueue {
+	
+	private Deque<Incident> incidents;
+	
+	//Create the incident queue
+	public IncidentQueue() {
+		incidents = new ArrayDeque<>();
+	}
+	
+	//Adds an incident to the bottom (tail) of the queue
+	public void lowPriorityAdd (Incident x) {
+		incidents.addLast(x);
+	}
+	
+	//Adds an incident to the top (head) of the queue
+	public void highPriorityAdd (Incident x) {
+		incidents.addFirst(x);
+	}
+	
+	//Prints but does not remove the details of the incident at the top of the queue.
+	public void peek() {
+		System.out.println(incidents.element().getIncidentNum() + ", " + incidents.element().getDesc() + ", " + incidents.element().getService() + ", " + incidents.element().getDistrict() + ", High Priority: " + incidents.element().isHighPriority());
+	}
+	
+	//Removes the top of the queue
+	public void handleTop() {
+		incidents.pollFirst();
+	}
+	
+	//Iterates and prints every incident in the queue
+	public void listAll() {
+		Iterator<Incident> i = incidents.iterator();
+		while (i.hasNext()) {
+			Incident x = i.next();
+			System.out.println(x.getIncidentNum() + ", " + x.getDesc() + ", " + x.getService() + ", " + x.getDistrict() + ", High Priority: " + x.isHighPriority());
+		}
+	}
+	
+	//Checks if the queue has Incidents and returns a boolean accordingly
+	public boolean tryPeek() {
+		if (incidents.peekFirst() == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	//Prints all incidents within the user-entered district
+	public String searchDistrict(String x) {
+		String ret = "";
+		Iterator<Incident> i = incidents.iterator();
+		while (i.hasNext()) {
+			Incident b = i.next();
+			if (b.getDistrict().equals(x)) {
+				ret = ret.concat(b.getIncidentNum() + ", " + b.getDesc() + ", " + b.getService() + ", " + b.getDistrict() + ", High Priority: " + b.isHighPriority() + "\n");
+			}
+		} if (ret.equals("")) {
+			ret = "-1";
+		}
+		return ret;
+	}
+	
+	//Prints all incidents that requires the user-entered service
+	public String searchService(String x) {
+		String ret = "";
+		Iterator<Incident> i = incidents.iterator();
+		while (i.hasNext()) {
+			Incident b = i.next();
+			if (b.getService().equals(x)) {
+				ret = ret.concat(b.getIncidentNum() + ", " + b.getDesc() + ", " + b.getService() + ", " + b.getDistrict() + ", High Priority: " + b.isHighPriority() + "\n");
+			}
+		} if (ret.equals("")) {
+			ret = "-1";
+		}
+		return ret;
+	}
+	
+}
+
+
+// This is a snippet from a project I worked on.</code></pre>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cv" aria-labelledby="cv-title">
+      <p class="section-kicker" id="cv-title">Experience &amp; education</p>
+      <div class="download-grid">
+        <div class="cv-card">
+          <div>
+            <h3>My CV</h3>
+            <p class="cv-copy">Here is a copy of my CV, where you can see more detail.</p>
+          </div>
+          <a class="button" href="cv.pdf" download>Download CV <span aria-hidden="true">&nbsp;↓</span></a>
+        </div>
+        <div class="cv-card">
+          <div>
+            <h3>Work advert</h3>
+            <p class="cv-copy">Copy of work advert.</p>
+          </div>
+          <a class="button" href="advert.zip" download>Download ZIP <span aria-hidden="true">&nbsp;↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="profiles" aria-labelledby="profiles-title">
+      <p class="section-kicker" id="profiles-title">Find me online</p>
+      <div class="profile-list">
+        <a class="profile-link" href="https://www.linkedin.com/in/franek-rembiasz-56519144b/"><span>LinkedIn</span><span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>© <span id="year">2026</span> Franciszek Rembiasz</span>
+    <p class="footer-disclosure">Parts of this portfolio were enchanced by ai, but the content was written by hand</p>
+    <a class="text-link" href="#about">Back to top ↑</a>
+  </footer>
+</body>
+</html>
